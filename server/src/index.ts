@@ -12,5 +12,3 @@ const server = async () => {
 };
 
 server().catch((error) => console.log(error));
-
-console.log("Hello world");
