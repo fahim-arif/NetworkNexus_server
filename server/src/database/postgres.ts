@@ -1,14 +1,18 @@
 import {DataSource} from 'typeorm'
 
-const connection = new DataSource({
-    type:"postgres",
-    database:'chat-app',
-    entities:[],
-    logging:true,
-    synchronize:true,
-    username:'postgres',
-    password:'postgres',
-    port: 5432
-  })
+import { User } from '../entities';
 
-export default connection
+
+const postgres = new DataSource({
+  type: "postgres",
+  database: "chat-app",
+  entities: [User],
+  logging: true,
+  synchronize: true,
+  username: "postgres",
+  password: "postgres",
+  host: "localhost",
+  port: 5432,
+});
+
+export default postgres
