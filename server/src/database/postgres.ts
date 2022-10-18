@@ -7,7 +7,7 @@ const postgres = new DataSource({
   type: "postgres",
   database: "chat-app",
   entities: [User],
-  logging: true,
+  // logging: true,
   synchronize: true,
   username: "postgres",
   password: "postgres",

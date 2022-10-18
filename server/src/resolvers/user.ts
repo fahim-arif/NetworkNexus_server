@@ -4,18 +4,26 @@ import { User } from "../entities";
 
 @Resolver()
 class UserResolver {
-  @Query(() => String)
-  hello(): string {
-    return "Hello world";
+  @Query(() => [User])
+  async getAllUsers(): Promise<User[]> {
+    return await User.find({});
   }
 
-  @Query(() => [User])
-  getAllUsers(): Promise<User[]> {
-    return User.find({});
+  @Query(() => Boolean)
+  async checkDuplicateEmail(
+    @Arg("email", () => String)
+    email: string
+  ): Promise<boolean> {
+    try {
+      await User.findOneByOrFail({ email });
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 
   @Mutation(() => User)
-  createUser(
+  async createUser(
     @Arg("email", () => String)
     email: string,
     @Arg("name", () => String)
@@ -23,7 +31,7 @@ class UserResolver {
     @Arg("password", () => String)
     password: string
   ): Promise<User> {
-    return User.create({
+    return await User.create({
       email,
       name,
       password,
