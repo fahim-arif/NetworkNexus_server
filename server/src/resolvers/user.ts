@@ -32,9 +32,9 @@ class UserResolver {
     password: string
   ): Promise<User> {
     return await User.create({
-      email:email.trim(),
-      name:name.trim(),
-      password:password.trim(),
+      email,
+      name,
+      password,
     }).save();
   }
 }
