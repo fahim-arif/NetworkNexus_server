@@ -1,12 +1,26 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
-
 import { User } from "../entities";
+
+import keyv, { DEFAULT_EXPIRATION } from "../redis/keyv";
 
 @Resolver()
 class UserResolver {
   @Query(() => [User])
   async getAllUsers(): Promise<User[]> {
-    return await User.find({});
+    try {
+      const users = await keyv.get("users");
+      if (users) {
+        return users;
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      const users = await User.find({});
+
+      await keyv.set("users", users, DEFAULT_EXPIRATION);
+
+      return users;
+    }
   }
 
   @Query(() => Boolean)

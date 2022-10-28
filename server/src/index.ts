@@ -4,9 +4,10 @@ import {
   ApolloServerPluginLandingPageGraphQLPlayground,
   ApolloServerPluginLandingPageDisabled,
 } from "apollo-server-core";
-
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
+import Keyv from "keyv";
+import { KeyvAdapter } from "@apollo/utils.keyvadapter";
 import { UserResolver } from "./resolvers";
 import postgres from "./database/postgres";
 
@@ -25,10 +26,11 @@ const server = async () => {
       resolvers: [UserResolver],
       validate: false,
     }),
+    cache: new KeyvAdapter(new Keyv("redis://localhost:6379")),
     plugins: [
-      process.env.NODE_ENV === 'production'
-      ? ApolloServerPluginLandingPageDisabled()
-      : ApolloServerPluginLandingPageGraphQLPlayground(),
+      process.env.NODE_ENV === "production"
+        ? ApolloServerPluginLandingPageDisabled()
+        : ApolloServerPluginLandingPageGraphQLPlayground(),
     ],
   });
 
@@ -39,7 +41,7 @@ const server = async () => {
   apolloServer.applyMiddleware({ app });
 
   app.get("/", (_, res) => {
-    res.send("Hello World");
+    res.send("Hello from express server");
   });
 
   const port = process.env.port || 5000;
