@@ -51,6 +51,11 @@ class UserResolver {
       password,
     }).save();
   }
+
+  @Mutation(() => [User])
+  async deleteAllUsers(){
+   
+  }
 }
 
 export default UserResolver;

@@ -37,6 +37,10 @@ class User extends BaseEntity {
   @Field(() => String)
   password: string;
 
+  // @Column({ array: true })
+  // @Field(() => [String]) 
+  // token: string;
+
   @BeforeInsert()
   trimData() {
     this.name = this.name.trim();
