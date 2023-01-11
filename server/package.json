@@ -12,25 +12,29 @@
   "author": "Moinur Rahman",
   "license": "ISC",
   "dependencies": {
-    "@apollo/utils.keyvadapter": "^1.1.2",
-    "@keyv/redis": "^2.5.2",
-    "apollo-server-express": "^3.10.3",
+    "@apollo/server": "^4.3.0",
+    "@apollo/utils.keyvadapter": "^2.0.0",
+    "@keyv/redis": "^2.5.4",
     "bcryptjs": "^2.4.3",
-    "class-validator": "^0.13.2",
+    "body-parser": "^1.20.1",
+    "class-validator": "^0.14.0",
+    "cors": "^2.8.5",
     "dataloader": "^2.1.0",
     "express": "^4.18.2",
-    "graphql": "^15.8.0",
-    "keyv": "^4.5.0",
+    "graphql": "^16.6.0",
+    "keyv": "^4.5.2",
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
-    "type-graphql": "^1.1.1",
-    "typeorm": "^0.3.10"
+    "type-graphql": "^2.0.0-beta.1",
+    "typeorm": "^0.3.11"
   },
   "devDependencies": {
+    "@apollo/server-plugin-landing-page-graphql-playground": "^4.0.0",
     "@types/bcryptjs": "^2.4.2",
-    "@types/express": "^4.17.14",
-    "@types/node": "^18.8.3",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.15",
+    "@types/node": "^18.11.18",
     "nodemon": "^2.0.20",
-    "typescript": "^4.8.4"
+    "typescript": "^4.9.4"
   }
 }

@@ -1,9 +1,10 @@
 import express, { Express } from "express";
-import { ApolloServer } from "apollo-server-express";
-import {
-  ApolloServerPluginLandingPageGraphQLPlayground,
-  ApolloServerPluginLandingPageDisabled,
-} from "apollo-server-core";
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware } from "@apollo/server/express4";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "@apollo/server-plugin-landing-page-graphql-playground";
+import { ApolloServerPluginLandingPageDisabled } from "@apollo/server/plugin/disabled";
+import cors from "cors";
+import { json } from "body-parser";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import Keyv from "keyv";
@@ -38,7 +39,12 @@ const server = async () => {
 
   const app: Express = express();
 
-  apolloServer.applyMiddleware({ app });
+  app.use(
+    "/graphql",
+    cors<cors.CorsRequest>(),
+    json(),
+    expressMiddleware(apolloServer)
+  );
 
   app.get("/", (_, res) => {
     res.send("Hello from express server");
